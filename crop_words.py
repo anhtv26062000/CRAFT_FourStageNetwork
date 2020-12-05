@@ -5,7 +5,6 @@ import pandas as pd
 from google.colab.patches import cv2_imshow
 
 def crop(pts, image):
-
   """
   Takes inputs as 8 points
   and Returns cropped, masked image with a white background
@@ -25,10 +24,9 @@ def crop(pts, image):
 
 
 def generate_words(image_name, score_bbox, image):
-
+  temp = 1
   num_bboxes = len(score_bbox)
   for num in range(num_bboxes):
-    temp = 1
     bbox_coords = score_bbox[num].split(':')[-1].split(',\n')
     if bbox_coords!=['{}']:
       l_t = float(bbox_coords[0].strip(' array([').strip(']').split(',')[0])
@@ -48,7 +46,7 @@ def generate_words(image_name, score_bbox, image):
         folder = '/'.join( image_name.split('/')[:-1])
 
         #CHANGE DIR
-        dir = '/content/Pipeline/Crop Words/'
+        dir = '/content/crop_words/'
 
         if os.path.isdir(os.path.join(dir + folder)) == False :
           os.makedirs(os.path.join(dir + folder))
@@ -61,9 +59,10 @@ def generate_words(image_name, score_bbox, image):
         except:
           continue
     
-
+# Điền thông tin đường dẫn của file .csv
 data=pd.read_csv('PATH TO CSV')
 
+# Điền thông tin đường dẫn của test folder
 start = PATH TO TEST IMAGES
 
 for image_num in range(data.shape[0]):
